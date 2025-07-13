@@ -1,9 +1,13 @@
-import react from "react";
+import { useParams } from 'react-router-dom';
 
-function Organizations() {
+function Organization() {
+    const { orgId } = useParams();
+
     return (
-        <h1>Organizations</h1>
+        <div className="flex flex-col items-center justify-center h-screen">
+            <h1>Organization {orgId}</h1>
+        </div>
     );
 }
 
-export default Organizations;
+export default Organization;
