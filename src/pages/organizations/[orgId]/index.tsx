@@ -1,0 +1,9 @@
+import react from "react";
+
+function Organizations() {
+    return (
+        <h1>Organizations</h1>
+    );
+}
+
+export default Organizations;
