@@ -1,24 +1,35 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { apiBase } from "@/config";
+
 function Organization() {
-    const organizations = [
-        {
-            id: 1,
-            name: "Organization 1",
-            logo: "https://placehold.co/200x200",
-            joinedDate: "January 1, 2023"
-        },
-        {
-            id: 2,
-            name: "Organization 2",
-            logo: "https://placehold.co/200x200",
-            joinedDate: "February 15, 2023"
-        },
-        {
-            id: 3,
-            name: "Organization 3",
-            logo: "https://placehold.co/200x200",
-            joinedDate: "March 30, 2023"
-        }
-    ];
+    const [organizations, setOrganizations] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchOrganizations = async () => {
+            try {
+                const response = await axios.get(`${apiBase}/organizations/`);
+                console.log("Fetched organizations:", response.data);
+                setOrganizations(response.data.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching organizations:', error);
+                setLoading(false);
+            }
+        };
+
+        fetchOrganizations();
+    }, []);
+
+
+    if (loading) {
+        return (
+            <div className="flex flex-col items-center h-screen pt-32">
+                <p>Loading organizations...</p>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col items-center h-screen pt-32">
@@ -30,7 +41,7 @@ function Organization() {
                     <a href="/organizations/create" className="bg-transparent border-2 border-blue-500 text-blue-500 rounded-lg p-4 flex text-xl items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
                         <span className="font-semibold">Create Organization</span>
                     </a>
-                    {organizations.map((org) => (
+                    {organizations.map((org: { id: string; logo: string; name: string; joinedDate: string }) => (
                         <a key={org.id} href={`/organizations/${org.id}`} className="bg-white shadow-md rounded-lg p-4 flex items-center hover:shadow-lg transition-shadow">
                             <div className="w-32 h-32 mr-4">
                                 <img 
