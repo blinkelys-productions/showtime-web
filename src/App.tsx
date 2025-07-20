@@ -6,6 +6,8 @@ import OrganizationCreator from "./pages/organizations/create";
 import Organization from "./pages/organizations/[orgId]/index";
 import Admin from "./pages/admin";
 import AdminDashboard from "./pages/admin/dashboard"
+import Login from "./pages/auth/login";
+import Register from "./pages/auth/register";
 import Layout from "./layouts/MainLayout";
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
             <Route path="/organizations/:orgId/events/:eventId" element={<Organization />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </Layout>
       </ThemeProvider>
