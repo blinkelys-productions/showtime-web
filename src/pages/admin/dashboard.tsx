@@ -14,21 +14,42 @@ function AdminDashboard() {
         }
     };
 
+    const handleDeleteUsers = async () => {
+        try {
+            await axios.delete(`${apiBase}/admin/users`);
+            setMessage("Users deleted successfully");
+        } catch (error) {
+            setMessage("Error deleting users");
+        }
+    };
+
     return (
-        <div className="p-4 flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
-            <div className="space-y-4">
-                <button
-                    onClick={handleDeleteOrganizations}
-                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
-                >
-                    Delete All Organizations
-                </button>
-                {message && (
-                    <p className={message.includes("Error") ? "text-red-500" : "text-green-500"}>
-                        {message}
-                    </p>
-                )}
+        <div className="min-h-screen flex items-center justify-center">
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="text-3xl font-bold text-gray-white text-center mb-8">Admin Dashboard</h1>
+                <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg p-6">
+                    <div className="space-y-6">
+                        <div className="flex flex-col gap-4">
+                            <button
+                                onClick={handleDeleteOrganizations}
+                                className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-sm hover:shadow-md"
+                            >
+                                Delete All Organizations
+                            </button>
+                            <button
+                                onClick={handleDeleteUsers}
+                                className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-semibold transition-colors duration-200 shadow-sm hover:shadow-md"
+                            >
+                                Delete All Users
+                            </button>
+                        </div>
+                        {message && (
+                            <div className={`p-4 rounded-lg ${message.includes("Error") ? "bg-red-100 text-red-700" : "bg-green-100 text-green-700"}`}>
+                                {message}
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     );
